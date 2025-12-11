@@ -409,7 +409,7 @@ img {
 }
 
 .engine-start {
-    animation: startEngineStrong 0.1s infinite;
+    animation: startEngineStrong 0.1s infinite !important;
 }
 
 /* Drive Away Animation */
@@ -519,7 +519,7 @@ img {
 }
 
 .drive-away {
-    animation: driveAway 1s forwards ease-in;
+    animation: driveAway 1s forwards ease-in !important;
 }
 
 /* Smoke Particle */
@@ -1407,6 +1407,41 @@ img {
 
     .hero h1 {
         font-size: 2.5rem;
+    }
+
+    .hero {
+        background-attachment: scroll;
+        background-image: none;
+        position: relative;
+        overflow: hidden;
+        height: auto;
+        /* Allow content to dictate height */
+        min-height: 100dvh;
+        /* Ensure it covers screen dynamically */
+        padding-bottom: 80px;
+        /* Add space at bottom for buttons */
+    }
+
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('assets/img/capa5.png') no-repeat center center/cover;
+        filter: blur(3px);
+        z-index: 0;
+        transform: scale(1.1);
+    }
+
+    .hero-overlay {
+        z-index: 1;
+    }
+
+    .hero-content {
+        z-index: 2;
+        margin-top: 30vh;
     }
 
     .about-container,
