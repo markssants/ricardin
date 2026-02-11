@@ -160,12 +160,12 @@ img {
 }
 
 .logo .highlight-moto {
-    color: #ffc107;
+    color: #007bff;
     animation: colorCycle 3s infinite alternate ease-in-out;
 }
 
 .logo .highlight-taxi {
-    color: #ffc107;
+    color: #007bff;
     animation: colorCycle 3s infinite alternate-reverse ease-in-out;
     /* Reverse direction for contrast */
     animation-delay: 1.5s;
@@ -174,13 +174,13 @@ img {
 
 @keyframes colorCycle {
     0% {
-        color: #ffc107;
-        /* Yellow */
+        color: #007bff;
+        /* Primary Blue */
     }
 
     100% {
-        color: #ff6600;
-        /* Orange */
+        color: #00d4ff;
+        /* Cyan/Neon Blue */
     }
 }
 
