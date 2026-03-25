@@ -942,10 +942,89 @@ img {
     background: #111;
 }
 
+.testimonials-wrapper {
+    position: relative;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 70px; /* Space to prevent arrows from overlapping cards */
+}
+
 .testimonials-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(4, 380px);
     gap: 30px;
+    overflow-x: auto;
+    padding: 10px 0 25px;
+    /* Custom Scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color) transparent;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* For Webkit browsers (Chrome, Safari) */
+.testimonials-grid::-webkit-scrollbar {
+    height: 8px;
+}
+
+.testimonials-grid::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.testimonials-grid::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 10px;
+}
+
+.testimonials-grid::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark);
+}
+
+.nav-btn-testimonial {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    transition: var(--transition);
+}
+
+.nav-btn-testimonial.prev {
+    left: 0;
+}
+
+.nav-btn-testimonial.next {
+    right: 0;
+}
+
+.nav-btn-testimonial:hover:not(:disabled) {
+    background: var(--primary-dark);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.nav-btn-testimonial:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Adjustments for different screen sizes */
+@media (max-width: 768px) {
+    .testimonials-wrapper {
+        padding: 0 20px; /* Less padding on mobile */
+    }
+    .nav-btn-testimonial {
+        display: none; /* Keep natural touch scrolling on small devices */
+    }
 }
 
 .testimonial-card {
@@ -953,11 +1032,10 @@ img {
     padding: 30px;
     border-radius: 15px;
     border-left: 4px solid var(--accent-color);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: box-shadow 0.3s ease;
 }
 
 .testimonial-card:hover {
-    transform: translateY(-10px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 

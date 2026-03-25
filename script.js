@@ -1,6 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
     let updateMotoPosition = () => { }; // Placeholder for the function
 
+    // --- Easing Function (Reusable) ---
+    const easeInOutCubic = (t, b, c, d) => {
+        t /= d / 2;
+        if (t < 1) return c / 2 * t * t * t + b;
+        t -= 2;
+        return c / 2 * (t * t * t + 2) + b;
+    };
+
     // --- Lógica para o Menu Hambúrguer ---
     const hamburger = document.querySelector('.hamburger');
     const navList = document.querySelector('.nav-list');
@@ -81,14 +89,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const distance = targetPosition - startPosition - headerOffset;
                 const duration = 1500; // Duração em ms (mais lento para efeito "gliding")
                 let start = null;
-
-                // Função de Easing (easeInOutCubic - começa devagar, acelera, termina devagar)
-                const easeInOutCubic = (t, b, c, d) => {
-                    t /= d / 2;
-                    if (t < 1) return c / 2 * t * t * t + b;
-                    t -= 2;
-                    return c / 2 * (t * t * t + 2) + b;
-                };
 
                 const animation = (currentTime) => {
                     if (start === null) start = currentTime;
@@ -345,6 +345,52 @@ document.addEventListener('DOMContentLoaded', () => {
     // Apply to Hero Icon
     const heroIconImg = document.querySelector('.hero-icon img');
     addMotoAnimation(heroIconImg);
+
+    // --- Lógica para os Botões de Navegação dos Depoimentos ---
+    const testimonialsGrid = document.getElementById('testimonialsGrid');
+    const prevBtn = document.getElementById('prevTestimonial');
+    const nextBtn = document.getElementById('nextTestimonial');
+
+    if (testimonialsGrid && prevBtn && nextBtn) {
+        const scrollAmount = 410; // card width (380) + gap (30)
+
+        const smoothScrollTestimonials = (direction) => {
+            const startPosition = testimonialsGrid.scrollLeft;
+            const distance = direction * scrollAmount;
+            const duration = 1200; // Consistent with other animations
+            let start = null;
+
+            const animation = (currentTime) => {
+                if (start === null) start = currentTime;
+                const timeElapsed = currentTime - start;
+                const run = easeInOutCubic(timeElapsed, startPosition, distance, duration);
+                testimonialsGrid.scrollLeft = run;
+                if (timeElapsed < duration) {
+                    requestAnimationFrame(animation);
+                }
+            };
+            requestAnimationFrame(animation);
+        };
+
+        nextBtn.addEventListener('click', () => {
+            smoothScrollTestimonials(1);
+        });
+
+        prevBtn.addEventListener('click', () => {
+            smoothScrollTestimonials(-1);
+        });
+
+        // Optional: Update button visibility based on scroll position
+        const updateButtons = () => {
+            prevBtn.disabled = testimonialsGrid.scrollLeft <= 0;
+            const maxScrollLeft = testimonialsGrid.scrollWidth - testimonialsGrid.clientWidth;
+            nextBtn.disabled = testimonialsGrid.scrollLeft >= maxScrollLeft - 1;
+        };
+
+        testimonialsGrid.addEventListener('scroll', updateButtons);
+        window.addEventListener('resize', updateButtons);
+        updateButtons();
+    }
 
 });
 
