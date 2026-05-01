@@ -392,6 +392,20 @@ document.addEventListener('DOMContentLoaded', () => {
         updateButtons();
     }
 
+    // --- Lógica para o Slideshow de Motos ---
+    const motoSlideshows = document.querySelectorAll('.moto-slideshow');
+    motoSlideshows.forEach(slideshow => {
+        const slides = slideshow.querySelectorAll('.slide');
+        if (slides.length > 1) {
+            let currentSlide = 0;
+            setInterval(() => {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }, 4000); // Troca a cada 4 segundos
+        }
+    });
+
 });
 
 // Handle Row Hover (Open on Hover)

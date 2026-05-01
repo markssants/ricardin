@@ -1721,6 +1721,26 @@ img {
     transform: scale(1.05);
 }
 
+/* Moto Slideshow */
+.moto-slideshow img.slide {
+    opacity: 0;
+    transition: opacity 1s ease-in-out, transform 0.3s ease;
+}
+
+.moto-slideshow img.slide.active {
+    opacity: 1;
+    z-index: 2;
+}
+
+.moto-slideshow img.slide:not(:first-child) {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: calc(100% - 8px);
+    height: calc(100% - 8px);
+    object-fit: cover;
+}
+
 .moto-details {
     flex: 1;
 }
